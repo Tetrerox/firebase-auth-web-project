@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("images/daniel-leone-g30P1zcOzXo-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signin-container {
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.header {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+#email,
+#password {
+  font-weight: 500;
+  font-size: 15px;
+  border: 0;
+  display: block;
+  margin: 15px auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 15px 25px;
+  border-radius: 25px;
+  width: 225px;
+  transition: 0.25s;
+}
+
+#email:focus,
+#password:focus {
+  width: 250px;
+}
+
+#signin-button {
+  font-weight: 500;
+  font-size: 15px;
+  border: 0;
+  display: block;
+  margin: 15px auto;
+  background-color: #b8c1c3;
+  padding: 15px 25px;
+  border-radius: 25px;
+  box-sizing: content-box;
+  width: 225px;
+  transition: 0.25s;
+  cursor: pointer;
+}
