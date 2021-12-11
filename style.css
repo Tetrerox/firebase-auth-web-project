@@ -14,7 +14,8 @@ body {
   background-size: cover;
 }
 
-.signin-container {
+.signin-container,
+.signup-container {
   width: 300px;
   padding: 40px;
   position: absolute;
@@ -24,14 +25,17 @@ body {
   text-align: center;
 }
 
-.header {
+.signin-header,
+.signup-header {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 25px;
 }
 
-#email,
-#password {
+#signin-email,
+#signin-password,
+#signup-email,
+#signup-password {
   font-weight: 500;
   font-size: 15px;
   border: 0;
@@ -44,12 +48,15 @@ body {
   transition: 0.25s;
 }
 
-#email:focus,
-#password:focus {
+#signin-email:focus,
+#signin-password:focus,
+#signup-email:focus,
+#signup-password:focus {
   width: 250px;
 }
 
-#signin-button {
+#signin-button,
+#signup-button {
   font-weight: 500;
   font-size: 15px;
   border: 0;
@@ -62,4 +69,16 @@ body {
   width: 225px;
   transition: 0.25s;
   cursor: pointer;
+}
+
+.signin-container p,
+.signup-container p {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.signup-link,
+.signin-link {
+  color: black;
+  font-size: 15px;
 }
