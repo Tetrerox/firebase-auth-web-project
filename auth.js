@@ -1,6 +1,11 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,13 +20,22 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const database = getDatabase(app);
 
 let signUpButton = document.getElementById("register-button");
 let logInButton = document.getElementById("login-button");
+let logOutButton = document.getElementById("logout-button");
 
-signUpButton.addEventListener("click", () => register());
-logInButton.addEventListener("click", () => logIn());
+if (signUpButton != null) {
+    signUpButton.addEventListener("click", () => register());
+}
+
+if (logInButton != null) {
+    logInButton.addEventListener("click", () => logIn());
+}
+
+if (logOutButton != null) {
+    logOutButton.addEventListener("click", () => logOut());
+}
 
 async function register() {
     let email = document.getElementById("register-email").value;
@@ -34,17 +48,47 @@ async function register() {
         return;
     }
 
-    await createUserWithEmailAndPassword(auth, email, password);
-    let user = auth.currentUser;
-
-    let userData = {
-        email: email
-    };
-
-    set(ref(database, 'users/' + user.uid), userData);
-    window.location.replace("index.html");
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        return;
+    }
 }
 
-function logIn() {
+async function logIn() {
+    let email = document.getElementById("login-email").value;
+    let password = document.getElementById("login-password").value;
 
+    let emailValidator = /^[^@]+@\w+(\.\w+)+\w$/;
+
+    if (emailValidator.test(email) == false || password.length < 6) {
+        alert("Email or Password does not adhere to the correct format");
+        return;
+    }
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert("Incorrect Email and/or Password entered " + errorMessage);
+        return;
+    }
 }
+
+async function logOut() {
+    await signOut(auth);
+}
+
+onAuthStateChanged(auth, user => {
+    if (user) {
+        window.location.replace("index.html");
+    } else {
+        window.location.replace("login.html");
+    }
+});
