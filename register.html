@@ -5,31 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Login Test</title>
+    <title>Register</title>
   </head>
   <body>
-    <form class="signup-container">
-      <h1 class="signup-header">Sign Up</h1>
+    <form class="register-container">
+      <h1 class="register-header">Sign Up</h1>
       <input
         type="text"
-        id="signup-email"
-        name="signup-email"
+        id="register-email"
+        name="register-email"
         placeholder="Email"
+        required
       />
       <input
         type="password"
-        id="signup-password"
-        name="signup-password"
+        id="register-password"
+        name="register-password"
         placeholder="Password"
+        required
       />
-      <input
-        type="submit"
-        id="signup-button"
-        name="signup-button"
-        value="SIGN UP"
-      />
+      <button type="button" id="register-button">SIGN UP</button>
       <p>-Or-</p>
-      <a href="index.html" class="signin-link">Already have an account?</a>
+      <a href="login.html" class="login-link">Already have an account?</a>
     </form>
+
+    <script type="module" src="auth.js"></script>
   </body>
 </html>
