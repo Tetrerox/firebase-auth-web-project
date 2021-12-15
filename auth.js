@@ -1,3 +1,8 @@
+import {
+    showLogInForm,
+    showSignUpForm,
+    showHomePage
+} from "./ui.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import {
     getAuth,
@@ -24,18 +29,15 @@ const auth = getAuth(app);
 let signUpButton = document.getElementById("register-button");
 let logInButton = document.getElementById("login-button");
 let logOutButton = document.getElementById("logout-button");
+let registerLinkButton = document.querySelector(".register-link");
+let loginLinkButton = document.querySelector(".login-link");
 
-if (signUpButton != null) {
-    signUpButton.addEventListener("click", () => register());
-}
+signUpButton.addEventListener("click", () => register());
+logInButton.addEventListener("click", () => logIn());
+logOutButton.addEventListener("click", () => logOut());
 
-if (logInButton != null) {
-    logInButton.addEventListener("click", () => logIn());
-}
-
-if (logOutButton != null) {
-    logOutButton.addEventListener("click", () => logOut());
-}
+registerLinkButton.addEventListener("click", showSignUpForm);
+loginLinkButton.addEventListener("click", showLogInForm);
 
 async function register() {
     let email = document.getElementById("register-email").value;
@@ -51,11 +53,12 @@ async function register() {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        document.getElementById("register-email").value = "";
+        document.getElementById("register-password").value = "";
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
-        return;
     }
 }
 
@@ -73,11 +76,12 @@ async function logIn() {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        document.getElementById("login-email").value = "";
+        document.getElementById("login-password").value = "";
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         alert("Incorrect Email and/or Password entered " + errorMessage);
-        return;
     }
 }
 
@@ -87,8 +91,8 @@ async function logOut() {
 
 onAuthStateChanged(auth, user => {
     if (user) {
-        window.location.replace("index.html");
+        showHomePage();
     } else {
-        window.location.replace("login.html");
+        showLogInForm();
     }
 });

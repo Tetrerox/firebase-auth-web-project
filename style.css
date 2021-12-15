@@ -25,6 +25,14 @@ body {
   text-align: center;
 }
 
+.register-container {
+  display: none;
+}
+
+.homepage {
+  display: none;
+}
+
 .login-header,
 .register-header {
   font-size: 22px;
@@ -81,4 +89,8 @@ body {
 .login-link {
   color: black;
   font-size: 15px;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
 }
